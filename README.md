@@ -1,6 +1,6 @@
 # Open Video Game Data
 
-Welcome to the **GameList Aggregator** project! This open-source initiative aggregates data about video games from various trusted sources, making it freely accessible and user-driven. The project is powered by ASP.NET Blazor, providing a dynamic, interactive user experience.
+Welcome to the **GameList Aggregator** project! This open-source initiative aggregates data about video games from various trusted sources, making it freely accessible and user-driven. The project now exposes a .NET Web API with a Svelte front-end for a dynamic, interactive user experience.
 
 ---
 
@@ -14,8 +14,8 @@ Welcome to the **GameList Aggregator** project! This open-source initiative aggr
 
 ## 🚀 Tech Stack
 
-- **Frontend**: ASP.NET Blazor
-- **Backend**: .NET Core
+- **Frontend**: Svelte
+- **Backend**: .NET Core Web API
 - **Database**: PostgreSQL
 - **Authentication**: Google OAuth
 - **External API**: [IGDB](https://www.igdb.com/)
@@ -65,12 +65,19 @@ Welcome to the **GameList Aggregator** project! This open-source initiative aggr
 
     *Important*: Keep your credentials private and never commit them to a public repository. Whenever possible, use environment variables or another secure method to store sensitive information.
     
-3. Build and run:
+3. Build and run the API:
     ```bash
     dotnet build
-    dotnet run
+    dotnet run --project Api/Api.csproj --urls=http://localhost:5000
     ```
-The application will be available at https://localhost:5124.
+   The API will be available at http://localhost:5000.
+4. Start the Svelte frontend:
+    ```bash
+    cd svelte-frontend
+    npm install
+    npm run dev
+    ```
+   The frontend will be available at http://localhost:5173 and will proxy requests to the API.
 
 ## 🛠️ Database Migrations
 If you plan to modify database schema, you may install the .NET EF tool globally:
