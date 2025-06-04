@@ -34,3 +34,6 @@ msbuild.wrn
 .vs/
 
 appsettings.Development.json
+svelte-frontend/node_modules/
+
+svelte-frontend/dist/
