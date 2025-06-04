@@ -1,19 +1,33 @@
 <script>
-  let games = [];
+  import GameList from './pages/GameList.svelte';
+  import GameDetails from './pages/GameDetails.svelte';
 
-  async function loadGames() {
-    const res = await fetch('/api/games');
-    games = await res.json();
+  let currentPath = window.location.pathname;
+  let gameId = null;
+
+  function navigate(path) {
+    currentPath = path;
+    history.pushState({}, '', path);
   }
 
-  loadGames();
+  window.addEventListener('popstate', () => {
+    currentPath = window.location.pathname;
+  });
+  function parsePath(path) {
+    const match = path.match(/^\/game\/(\d+)/);
+    if (match) {
+      gameId = match[1];
+      return 'details';
+    }
+    gameId = null;
+    return 'list';
+  }
+
+  $: page = parsePath(currentPath);
 </script>
 
-<main>
-  <h1>Game List</h1>
-  <ul>
-    {#each games as game}
-      <li>{game.title}</li>
-    {/each}
-  </ul>
-</main>
+{#if page === 'list'}
+  <GameList />
+{:else if page === 'details'}
+  <GameDetails {gameId} />
+{/if}

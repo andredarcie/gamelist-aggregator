@@ -10,6 +10,8 @@ builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
 
 builder.Services.AddSingleton<GameService>();
 
+builder.Services.AddControllers();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -18,10 +20,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.MapGet("/api/games", (GameService gameService) =>
-{
-    var (games, _) = gameService.GetGames();
-    return Results.Ok(games);
-});
+
+app.MapControllers();
 
 app.Run();
